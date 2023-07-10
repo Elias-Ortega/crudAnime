@@ -1,0 +1,11 @@
+#logo{
+    background-image: url("/img/anime.png");
+    width: 600px;
+    height:150px;
+}
+.texto{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    font-size: 1.5rem;
+}
