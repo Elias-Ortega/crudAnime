@@ -1,7 +1,6 @@
-const { actualizarAnime, eliminarAnime } = require('./service/anime');
+const { actualizarAnime,  eliminarAnime, buscarPorId,buscarPorNombre } = require('./service/anime');
 
 const express = require('express');
-
 
 const bodyParser = require('body-parser');
 
@@ -22,8 +21,6 @@ app.use(bodyParser.json());
 //Routes (rutas)
 const animeRoutes = require('./routes/animeRoutes');
 app.use('/', animeRoutes);
-
-
 
 app.listen(8080);
 

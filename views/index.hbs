@@ -20,8 +20,8 @@
     <div class="container my-1">
         <div class="row">
             <div class="col-3">
-               <h4>Ingresa tu nuevo anime</h4>
-                <form action="/animes" method="post">
+                <h4>Ingresa tu nuevo anime</h4>
+                <form action="/animes" method="POST">
 
                     <div class="mb-3">
                         <label for="txtNombre" class="form-label">Nombre</label>
@@ -45,10 +45,10 @@
 
                     <button type="submit" class="btn btn-primary text-center">Insertar</button>
                 </form>
-            </div>       
-
+            </div>
+                <!--> Listar animes  -->
             <div class="col-5">
-                <h4 class="text-center">Lista de Animes</h4>
+                <h4 class="text-center">Listado de Animes</h4>
                 <table class="table">
 
                     <thead>
@@ -79,8 +79,67 @@
                     </tbody>
                 </table>
             </div>
-             <div class="col-4">
-                <input type="text" placeholder="Ingresa ID Del Anime"><button>Buscar</button>
+            <div class="col-4">
+                <!-- Formulario para buscar por ID -->
+                <form action="/buscar/id" method="POST">
+                    <input type="text" class="my-3" placeholder="Ingresa ID Del Anime" name="id">
+                    <button type="submit">Buscar por ID</button>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Género</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Autor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each animesPorId}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.nombre}}</td>
+                            <td>{{this.genero}}</td>
+                            <td>{{this.año}}</td>
+                            <td>{{this.autor}}</td>
+                        </tr>
+                        {{/each}}
+
+
+                    </tbody>
+                </table>
+
+                <!-- Formulario para buscar por nombre -->
+                <form action="/buscar/nombre" class="my-3" method="POST">
+                    <input type="text" placeholder="Nombre Del Anime" name="nombre">
+                    <button type="submit">Buscar por Nombre</button>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Género</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Autor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each animesPorNombre}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.nombre}}</td>
+                            <td>{{this.genero}}</td>
+                            <td>{{this.año}}</td>
+                            <td>{{this.autor}}</td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

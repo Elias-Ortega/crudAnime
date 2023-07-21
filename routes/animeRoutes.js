@@ -1,14 +1,14 @@
 const express = require('express');
 
 const router = express.Router();
-const { leerAnimes, insertarAnimes, actualizarAnime, eliminarAnime } = require('../service/anime');
+const { leerAnimes, insertarAnimes, actualizarAnime, eliminarAnime, buscarPorId, buscarPorNombre } = require('../service/anime');
 
 
 //ruta raiz muestra la lista de animes
 router.get('/', (req, res) => {
-  const datosAnime = leerAnimes('anime');
+  const listaAnimes = leerAnimes('anime');
   res.render('index', {
-    animes: datosAnime
+    animes: listaAnimes
   });
 });
 
@@ -23,14 +23,7 @@ router.post('/animes', (req, res) => {
   res.redirect('/');
 });
 
-// Ruta para eliminar 
-router.get('/eliminar/:id', (req, res) => {
-  const id = req.params.id;
-  eliminarAnime('anime', id);
-  res.redirect('/');
-});
-
-//Ruta para mostrar el formulario de actualizacion
+//Ruta para mostrar el formulario en pagina actualizar.hbs
 router.get('/actualizar/:id', (req, res) => {
   const id = req.params.id;
   const datosAnime = leerAnimes('anime');
@@ -38,14 +31,12 @@ router.get('/actualizar/:id', (req, res) => {
 
   res.render('actualizar', {
     anime: anime,
-    id: id 
+    id: id
   });
 
 });
 
-
-
-// funcion para actualizar anime 
+//  Ruta actualizar anime 
 router.post('/guardar/:id', (req, res) => {
   // Obtener los datos enviados desde el formulario
   const id = req.params.id;
@@ -53,14 +44,43 @@ router.post('/guardar/:id', (req, res) => {
   const genero = req.body.genero;
   const año = req.body.año;
   const autor = req.body.autor;
-
-  // Llamar a la función para guardar los cambios en el anime
-  actualizarAnime('anime', id, nombre, genero, año, autor);
-
-  res.redirect('/');
- 
   
+  actualizarAnime('anime', id, nombre, genero, año, autor);
+  res.redirect('/');
+
 });
+
+
+// ruta para eliminar 
+router.get('/eliminar/:id', (req, res) => {
+  const id = req.params.id;
+  eliminarAnime('anime', id);
+  res.redirect('/');
+});
+
+
+// ruta buscar por ID 
+router.post('/buscar/id', (req, res) => {
+  const parametro = req.body.id;
+  const animePorId = buscarPorId('anime', parametro);  
+  const listaAnimes = leerAnimes('anime');
+  res.render('index', {
+    animes:listaAnimes,
+    animesPorId: animePorId ? [animePorId] : [],
+  });
+});
+
+// Buscar por nombre 
+router.post('/buscar/nombre', (req, res) => {
+  const parametro = req.body.nombre;
+  const animePorNombre = buscarPorNombre('anime', parametro);
+  const listaAnimes = leerAnimes('anime');
+  res.render('index', {
+    animes:listaAnimes,
+    animesPorNombre: animePorNombre ? [animePorNombre] : [],
+  });
+});
+
 
 
 
