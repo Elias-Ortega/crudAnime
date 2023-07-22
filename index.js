@@ -1,28 +1,11 @@
-const { actualizarAnime,  eliminarAnime, buscarPorId,buscarPorNombre } = require('./service/anime');
-
-const express = require('express');
-
-const bodyParser = require('body-parser');
+const app = require('./app.js')
 
 
-const app = express();
+const main = () => {
+    const PORT = 8080;
+    app.listen(PORT, () => {
+        console.log("Servidor escuchando en puerto: " + PORT);
+    });
+};
 
-
-//motor de plantillas
-app.set('view engine', 'hbs');
-
-//carpeta para recursos estaticos
-app.use(express.static('public'));
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-
-//Routes (rutas)
-const animeRoutes = require('./routes/animeRoutes');
-app.use('/', animeRoutes);
-
-app.listen(8080);
-
-
-
+main()

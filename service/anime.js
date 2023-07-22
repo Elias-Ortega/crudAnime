@@ -1,11 +1,11 @@
 const fs = require('fs');
 
 
-const leerAnimes = (nombreArchivo) => {
+ const leerAnimes = (nombreArchivo) => {
   let datos = fs.readFileSync(`./data/${nombreArchivo}.json`, 'utf-8');
   const arreglo = JSON.parse(datos);
   return arreglo;
-};
+}; 
 
 
 const insertarAnimes = (nombreArchivo, nombre, genero, año, autor) => {
@@ -21,7 +21,6 @@ const insertarAnimes = (nombreArchivo, nombre, genero, año, autor) => {
   fs.writeFileSync(`./data/${nombreArchivo}.json`, datos, 'utf-8');
 };
 
-
 const actualizarAnime = (nombreArchivo, id, nombre, genero, año, autor) => {
   const arregloAnimes = leerAnimes(nombreArchivo);
   arregloAnimes[id] = { nombre, genero, año, autor };
@@ -29,15 +28,12 @@ const actualizarAnime = (nombreArchivo, id, nombre, genero, año, autor) => {
   fs.writeFileSync(`./data/${nombreArchivo}.json`, datos, 'utf-8');
 };
 
-
 const eliminarAnime = (nombreArchivo, id) => {
   const arregloAnimes = leerAnimes(nombreArchivo);
   delete arregloAnimes[id];//elimina directo 
   const datos = JSON.stringify(arregloAnimes);
   fs.writeFileSync(`./data/${nombreArchivo}.json`, datos, 'utf-8');
 };
-
-
 
 const buscarPorId = (nombreArchivo, id) => {
   try {
