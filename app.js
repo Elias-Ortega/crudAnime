@@ -21,5 +21,5 @@ const animeRoutes = require('./routes/animeRoutes');
 app.use('/', animeRoutes);
 
 
-module.exports = {app};
+module.exports =  app;
 
